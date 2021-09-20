@@ -3,7 +3,7 @@ import argparse
 from pprint import pprint
 
 # Custom libs
-from lib import Configuration, ColorizedLogger, ProcessedBook
+from nlp_libs import Configuration, ColorizedLogger, ProcessedBook
 
 logger = ColorizedLogger(logger_name='Main', color='yellow')
 

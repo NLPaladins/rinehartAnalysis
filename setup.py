@@ -31,7 +31,7 @@ COMMANDS = [
     'nlp_main = main:main'
 ]
 
-data_files = ['lib/configuration/yml_schema.json']
+data_files = ['nlp_libs/configuration/yml_schema.json']
 
 setup(
     author="jeanmerlet, drkostas, LaneMatthewJ",
@@ -56,8 +56,8 @@ setup(
     include_package_data=True,
     keywords='starter',
     name='starter',
-    packages=find_packages(include=['lib',
-                                    'lib.*']),
+    packages=find_packages(include=['nlp_libs',
+                                    'nlp_libs.*']),
     setup_requires=setup_requirements,
     url='https://github.com/NLPaladins/rinehartAnalysis',
     version='0.1.0',
