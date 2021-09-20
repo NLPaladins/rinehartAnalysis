@@ -25,14 +25,10 @@ with open('README.md') as readme_file:
     readme = readme_file.read()
 
 setup_requirements = []
-test_requirements = []
-
-COMMANDS = [
-    'nlp_main = main:main'
-]
-
 data_files = ['nlp_libs/configuration/yml_schema.json']
-
+COMMANDS = [
+    # 'nlp_main = main:main'
+]
 setup(
     author="jeanmerlet, drkostas, LaneMatthewJ",
     author_email="jmerlet@vols.utk.edu, kgeorgio.vols.utk.edu, mlane42@vols.utk.edu",
@@ -48,14 +44,14 @@ setup(
         'clean': CleanCommand,
     },
     data_files=[('', data_files)],
-    description="Rinehart Analysis for the NLP (ECE-617) Project 1.",
+    description="Rinehart Analysis for NLP (ECE-617) Project 1.",
     entry_points={'console_scripts': COMMANDS},
     install_requires=requirements,
     license="MIT license",
     long_description=readme,
     include_package_data=True,
-    keywords='starter',
-    name='starter',
+    keywords='rinehart analysis',
+    name='RinehartAnalysis',
     packages=find_packages(include=['nlp_libs',
                                     'nlp_libs.*']),
     setup_requires=setup_requirements,

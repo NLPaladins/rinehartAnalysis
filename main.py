@@ -15,7 +15,7 @@ def get_args() -> argparse.Namespace:
         argparse.Namespace:
     """
     parser = argparse.ArgumentParser(
-        description='Rinehart Analysis for the NLP (ECE-617) Project 1',
+        description='Rinehart Analysis for NLP (ECE-617) Project 1',
         add_help=False)
     # Required Args
     required_args = parser.add_argument_group('Required Arguments')
@@ -51,9 +51,18 @@ def main():
     books = conf.get_config('data_loader')[0]['config']['urls']
     # pprint(books)  # Pretty print the books dict
     # Create ProcessedBook Object
-    circular_staircase_processed = ProcessedBook(title=books['The_Circular_Staircase'])
-    chapt_2 = '\n'.join(circular_staircase_processed.get_chapter(chapter=2))
-    logger.info(f"Chapter 2:\n{chapt_2[:45]} (..)")
+    staircase = ProcessedBook(title=books['The_Circular_Staircase'])
+    # Get chapter 1
+    chapt_1 = staircase.get_chapter(chapter=1)
+    chapt_1_joined = '\n'.join(chapt_1)
+    # Get chapter 2
+    chapt_2 = staircase.get_chapter(chapter=2)
+    chapt_2_joined = '\n'.join(chapt_2)
+
+    logger.info(f"Length of staircase raw: {len(staircase.raw)}", color='blue', attrs=['underline'])
+    logger.info(f"Length of staircase clean: {len(staircase.clean)}", color='blue', attrs=['underline'])
+    logger.info(f"Chapter 1:\n{chapt_1_joined[:45]} (..)", )
+    logger.info(f"Chapter 2:\n{chapt_2_joined[:45]} (..)")
 
 
 if __name__ == '__main__':
