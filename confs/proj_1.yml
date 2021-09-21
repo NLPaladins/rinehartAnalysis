@@ -5,12 +5,54 @@ data_loader:
       The_Circular_Staircase:
         url: https://www.gutenberg.org/files/434/434-0.txt
         detectives:
-          - man1
-          - man2
+          - Rachel Innes
         suspects:
-          - man3
-          - man4
-        crime_type: stabbing
+          - Liddy
+          - Halsey
+          - Gertrude
+          - Paul Armstrong
+          - Doctor Walker
+          - Louise Armstrong
+          - Arnold Armstrong
+          - Mrs. Ralston
+          - Thomas Johnson
+          - Aunt Ray
+          - Mary Anne
+          - Burke
+          - Joe Jefferson
+          - Anne Watson
+          - Eliza Klinefelter
+          - Beulah
+          - Jack Bailey
+          - Mr. Jarvis
+          - Warner
+          - Mr. Jamieson
+          - Mr. Harton
+          - Rosie
+          - Sam Bohannon
+          - Beatrice Fairfax
+          - Mrs. Ogden Fitzhugh
+          - Mr. Trautman
+          - Doctor Stewart
+          - Doctor Wainwright
+          - Alexander Graham
+          - Nina Carrington
+          - Doctor Willoughby
+          - Riggs
+          - Covingtons
+          - Sam Huston
+          - Anne Endicott
+          - Barbara Fitzhugh
+          - Lucien Wallace
+          - Anna Whitcomb
+          - Madame Sweeny
+          - Sam Bohannon
+          - Ella Stewart
+          - Annie Morton
+          - Matthew Geist
+          - Mattie Bliss
+          - Doctor Boyle
+        crime_type: example
       The_Man_in_Lower_Ten:
         url: https://www.gutenberg.org/files/1869/1869-0.txt
         detectives:
@@ -19,7 +61,7 @@ data_loader:
         suspects:
           - man3
           - man4
-        crime_type: stabbing
+        crime_type: example
       The_Breaking_Point:
         url: https://www.gutenberg.org/files/1601/1601-0.txt
         detectives:
@@ -28,7 +70,7 @@ data_loader:
         suspects:
           - man3
           - man4
-        crime_type: stabbing
+        crime_type: example
       Oh,_Well,_You_Know_How_Women_Are!:
         url: https://www.gutenberg.org/cache/epub/24259/pg24259.txt
         detectives:
@@ -37,7 +79,7 @@ data_loader:
         suspects:
           - man3
           - man4
-        crime_type: stabbing
+        crime_type: example
       The_Window_at_the_White_Cat:
         url: https://www.gutenberg.org/cache/epub/24259/pg24259.txt
         detectives:
@@ -46,7 +88,7 @@ data_loader:
         suspects:
           - man3
           - man4
-        crime_type: stabbing
+        crime_type: example
 
 
 # --- More books --- #

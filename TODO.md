@@ -1,8 +1,11 @@
 # TODO
 Also check the [Github issues](https://github.com/NLPaladins/rinehartAnalysis/issues).
-- [ ] Bootstrap project - Kos
-  - [X] Create config, logging libs
-  - [X] Create YML config that contains necessary book metadata
+- [ ] General Tasks
+  - [X] Chapter Separator - Jean
+  - [X] Sentence Separator - Jean
+  - [X] Create config, logging libs - Kos
+  - [X] Create YML config that contains necessary book metadata - Kos
+  - [ ] Gather Metadata/Prior Knowledge for each book (detective, suspects, type of crime)
 - [ ] When does the detective (or a pair) occur for the first time -  chapter #, the sentence(s) # in a chapter - Matt
   - [ ] The_Circular_Staircase
   - [ ] The_Man_in_Lower_Ten
