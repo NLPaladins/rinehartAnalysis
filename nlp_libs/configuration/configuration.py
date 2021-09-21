@@ -121,7 +121,7 @@ class Configuration:
             raise TypeError('Config file must be TextIOWrapper or path to a file')
         return config, config_path
 
-    def get_config(self, config_name) -> List:
+    def get_config(self, config_name) -> Dict:
         """
         Returns the subconfig requested
 

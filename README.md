@@ -70,19 +70,7 @@ file directly or invoke its console script.
 ### Modifying the Configuration <a name = "configuration"></a>
 
 You may need to configure the yml file. There is an already configured yml file 
-under [confs/proj_1.yml](confs/proj_1.yml) with the following structure:
-
-```yaml
-tag: proj1
-data_loader:
-  - config:
-      urls:
-        The_Circular_Staircase: https://www.gutenberg.org/files/434/434-0.txt
-        The_Man_in_Lower_Ten: https://www.gutenberg.org/files/1869/1869-0.txt
-        The_Breaking_Point: https://www.gutenberg.org/files/1601/1601-0.txt
-        (...)
-    version: v1
-```
+under [confs/proj_1.yml](confs/proj_1.yml).
 
 ### Execution <a name = "execution"></a>
 First, make sure you are in the correct virtual environment:
