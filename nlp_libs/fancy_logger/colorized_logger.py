@@ -142,6 +142,9 @@ class ColorizedLogger(AbstractFancyLogger):
             clear_log (bool): Whether to empty the log file or not
         """
         cls.log_path = os.path.abspath(log_path)
+        log_folder = f'{os.sep}'.join(cls.log_path.split(os.sep)[:-1])
+        if not os.path.exists(log_folder):
+            os.mkdir(log_folder)
         if clear_log:
             open(cls.log_path, 'w').close()
         cls.log_level = logging.INFO if debug is not True else logging.DEBUG
