@@ -15,7 +15,7 @@
 + [Running the code using Jupyter](#jupyter)
     + [Local Jupyter](#local_jupyter)
     + [Google Collab](#google_collab)
-+ [Adding New Libraries](#Running the code) 
++ [Adding New Libraries](#adding_libs) 
 + [License](#license)
 
 ## About <a name = "about"></a>
@@ -131,7 +131,7 @@ And open the [main.ipynb](main.ipynb).
 
 Just Open this [Google Collab Link](https://colab.research.google.com/drive/1evpodmjkOM1_NzyinYWJCz4xVRHAXZb6).
 
-## Adding New Libraries <a name = "Running the code"></a>
+## Adding New Libraries <a name = "adding_libs"></a>
 
 If you want to add a new library (e.g. a Class) in the project you need to follow these steps:
 1. Create a new folder under *"\<project root>/nlp_libs"* with a name like *my_lib*
