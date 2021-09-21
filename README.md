@@ -144,8 +144,8 @@ If you want to add a new library (e.g. a Class) in the project you need to follo
     
     from .<Module name> import <Class Name>
     
-    __author__ = "drkostas"
-    __email__ = "georgiou.kostas94@gmail.com"
+    __email__ = "jmerlet@vols.utk.edu, kgeorgio.vols.utk.edu, mlane42@vols.utk.edu"
+    __author__ = "jeanmerlet, drkostas, LaneMatthewJ"
     __version__ = "0.1.0"
     ```
 6. Open [\<project root>/nlp_libs/\_\_init\_\_.py](nlp_libs/__init__.py)
