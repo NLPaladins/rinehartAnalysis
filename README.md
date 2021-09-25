@@ -129,7 +129,7 @@ And open the [main.ipynb](main.ipynb).
 
 ### Google Collab <a name = "google_collab"></a>
 
-Just Open this [Google Collab Link](https://colab.research.google.com/drive/1evpodmjkOM1_NzyinYWJCz4xVRHAXZb6).
+Just Open this [Google Collab Link](https://colab.research.google.com/github/NLPaladins/rinehartAnalysis/blob/main/main.ipynb).
 
 ## Adding New Libraries <a name = "adding_libs"></a>
 
