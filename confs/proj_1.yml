@@ -121,7 +121,9 @@ data_loader:
       The_After_House:
         url: https://gutenberg.org/files/2358/2358-0.txt
         detective:
-          - detective
+          - Dr. Leslie: 
+            - Dr. Leslie
+            - Leslie
         suspects: 
           - Marshall Benedict Turner:
             - Marshall Benedict Turner
@@ -144,9 +146,6 @@ data_loader:
           - Obadiah Williams:
             - Obadiah Williams 
             - Williams
-          - Karen Hansen: 
-            - Karen Hansen
-            - Karen
           - McWhirter: 
             - McWhirter
           - Elsa Lee: 
@@ -166,10 +165,13 @@ data_loader:
             - Swede Oleson
             - Swede
             - Oleson
-          - Schwartz:  
-            - Schwartz
           - Clarke:  
             - Clarke
+          - Mrs. Johns: 
+            - Mrs. Johns
+        supporting:
+          - Schwartz:  
+            - Schwartz
         victim: 
           - Wilmer Vail:
             - Wilmer Vail
@@ -177,12 +179,21 @@ data_loader:
             - Vail 
           - Captain Richardson: 
             - Richardson
+          - Karen Hansen: 
+            - Karen Hansen
+            - Karen
         crime_type:  Murder by Axe
-
+        murderer:
+          - Charlie Jones:
+            - Charlie Jones
+            - Charlie
+            - Jones 
       The_Case_of_Jennie_Brice:
         url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
         detective:
-          - man1
+          - Graves:
+            - Tom
+            - Graves
         suspects: 
           - Philip Ladley:
             - Philip Ladley
@@ -211,8 +222,6 @@ data_loader:
             - Miss Harvey
             - Miss Lida
             - Lida
-          - Graves:
-            - Graves
           - Horner:
             - Horner
           - Alma:
