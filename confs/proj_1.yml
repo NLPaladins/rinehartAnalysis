@@ -62,34 +62,33 @@ data_loader:
           - man3
           - man4
         crime_type: example
-      The_Breaking_Point:
-        url: https://www.gutenberg.org/files/1601/1601-0.txt
-        detectives:
+      The_After_House:
+        url: https://gutenberg.org/files/2358/2358-0.txt
+        detective:
           - man1
           - man2
-        suspects:
+        suspects: 
           - man3
           - man4
-        crime_type: example
-      Oh,_Well,_You_Know_How_Women_Are!:
-        url: https://www.gutenberg.org/cache/epub/24259/pg24259.txt
-        detectives:
+        crime_type:  example
+      The_Case_of_Jennie_Brice:
+        url: https://gutenberg.org/cache/epub/11127/pg11127.txt
+        detective:
           - man1
           - man2
-        suspects:
+        suspects: 
           - man3
           - man4
-        crime_type: example
-      The_Window_at_the_White_Cat:
-        url: https://www.gutenberg.org/cache/epub/24259/pg24259.txt
-        detectives:
+        crime_type:  example
+      K: 
+        url: https://gutenberg.org/files/9931/9931-0.txt
+        detective:
           - man1
           - man2
-        suspects:
+        suspects: 
           - man3
           - man4
-        crime_type: example
-
+        crime_type:  example
 
 # --- More books --- #
 # The_Window_at_the_White_Cat: https://www.gutenberg.org/cache/epub/34020/pg34020.txt
