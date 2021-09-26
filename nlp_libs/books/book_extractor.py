@@ -133,3 +133,33 @@ def get_n_words(book, alias_matcher, chapter_num, sent_num, n):
     sents = ' '.join(book.clean[chapter_num][sent_num + 1: sent_num + 4])
     words = re.search('((?:\S+ ){0,' + str(n) + '}\S?(?:' + alias_matcher + ')\S?(?: \S+){0,' + str(n) + '})', sents).group(0)
     return words
+
+def get_co_occurences(book, name_lists, n_sents=2):
+    assert len(name_lists) == 2
+    mentions_a, mentions_b = {}, {}
+    dets, perp = name_lists[0], name_lists[1]
+    dets_matcher = '|'.join(dets)
+    perp_matcher = '|'.join(perp)
+    for chapter_num, chapter in enumerate(book.clean):
+        mentions_a[chapter_num] = []
+        mentions_b[chapter_num] = []
+        for sent_num, sentence in enumerate(chapter[2:]):
+            match_a = re.search(dets_matcher, sentence)
+            match_b = re.search(perp_matcher, sentence)
+            if match_a:
+                mentions_a[chapter_num].append(sent_num)
+            if match_b:
+                mentions_b[chapter_num].append(sent_num)
+    co_occurences = []
+    for chapter_a, sent_nums_a in mentions_a.items():
+        for chapter_b, sent_nums_b in mentions_b.items():
+            if chapter_a == chapter_b:
+                for sent_num_a in sent_nums_a:
+                    for sent_num_b in sent_nums_b:
+                        if sent_num_a > sent_num_b and sent_num_a - sent_num_b <= n_sents:
+                            sents = book.clean[chapter_a][2:][sent_num_b:sent_num_a+1]
+                            co_occurences.append([chapter_a, sent_num_b, sent_num_a, sents])
+                        if sent_num_b > sent_num_a and sent_num_b - sent_num_a <= n_sents:
+                            sents = book.clean[chapter_a][2:][sent_num_a:sent_num_b+1]
+                            co_occurences.append([chapter_a, sent_num_a, sent_num_b, sents])
+    return co_occurences
