@@ -1,5 +1,5 @@
 import urllib.request
-from nlp_libs import Configuration, ColorizedLogger
+from nlp_libs import ColorizedLogger
 import numpy as np
 import urllib.request
 import re

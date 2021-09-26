@@ -1,6 +1,10 @@
 import re
 from typing import *
 import numpy as np
+from nlp_libs import ColorizedLogger, ProcessedBook
+
+logger = ColorizedLogger(logger_name='Book Extractor', color='yellow')
+
 
 def createNamedDictionary(personList):
     personList.sort(key=len, reverse=True)
@@ -98,6 +102,7 @@ def create_named_dictionary(unique_person_list):
 
     return alias_dictionary
 
+
 def get_earliest_chapter_sentence_from_name_lists(book, name_lists, n=0, first=True):
     '''
     Takes in a list of lists, where
@@ -129,10 +134,14 @@ def get_earliest_chapter_sentence_from_name_lists(book, name_lists, n=0, first=T
                 break
     return first_mentioned
 
+
 def get_n_words(book, alias_matcher, chapter_num, sent_num, n):
     sents = ' '.join(book.clean[chapter_num][sent_num + 1: sent_num + 4])
-    words = re.search('((?:\S+ ){0,' + str(n) + '}\S?(?:' + alias_matcher + ')\S?(?: \S+){0,' + str(n) + '})', sents).group(0)
+    words = re.search(
+        '((?:\S+ ){0,' + str(n) + '}\S?(?:' + alias_matcher + ')\S?(?: \S+){0,' + str(n) + '})',
+        sents).group(0)
     return words
+
 
 def get_co_occurences(book, name_lists, n_sents=2):
     assert len(name_lists) == 2
@@ -157,9 +166,52 @@ def get_co_occurences(book, name_lists, n_sents=2):
                 for sent_num_a in sent_nums_a:
                     for sent_num_b in sent_nums_b:
                         if sent_num_a > sent_num_b and sent_num_a - sent_num_b <= n_sents:
-                            sents = book.clean[chapter_a][2:][sent_num_b:sent_num_a+1]
+                            sents = book.clean[chapter_a][2:][sent_num_b:sent_num_a + 1]
                             co_occurences.append([chapter_a, sent_num_b, sent_num_a, sents])
                         if sent_num_b > sent_num_a and sent_num_b - sent_num_a <= n_sents:
-                            sents = book.clean[chapter_a][2:][sent_num_a:sent_num_b+1]
+                            sents = book.clean[chapter_a][2:][sent_num_a:sent_num_b + 1]
                             co_occurences.append([chapter_a, sent_num_a, sent_num_b, sents])
     return co_occurences
+
+
+def get_crime_mentions(book: ProcessedBook, crime_words: List[str],
+                       p_lookaheads: List[str] = None,
+                       print_instances: bool = False) -> List[Tuple[int, int]]:
+    """
+    Takes a list of crime words and positive lookaheads, and looks for sentences that match.
+    :param book:
+    :param crime_words:
+    :param p_lookaheads:
+    :param print_instances:
+    :return: A list of (chapter_ind, sentence_ind)
+
+    Usage Example
+    crime_mentions = get_crime_mentions(book=staircase,
+                                        crime_words=crime_words,
+                                        p_lookaheads=p_lookaheads,
+                                        print_instances=True)
+    """
+    # Create Regex for the crime words
+    crime_words_linked = '|'.join(crime_words)
+    reg_exp = rf'(?:.*\s(?:{crime_words_linked}).*)'
+    # Create Positive lookaheads
+    if p_lookaheads:
+        p_lookaheads_linked = ''.join(f"(?={look})" for look in p_lookaheads)
+    else:
+        p_lookaheads_linked = ''
+    reg_exp = rf'(^.*{p_lookaheads_linked}{reg_exp}$)'
+    logger.info(f"Regex: {reg_exp}", attrs=['underline'])
+    # Get all sentences that match any of these words
+    indexes = []
+    for chapter_ind, chapter in enumerate(book.clean):
+        for line_ind, line in enumerate(chapter):
+            if re.match(reg_exp, line):
+                indexes.append((chapter_ind, line_ind))
+
+    if print_instances:
+        logger.info("The crime words were mentioned in the following instances:")
+        for index in indexes:
+            logger.info(f"Chapter: {index[0]}, Sentence: {index[1]}")
+            logger.info(f"{book.clean[index[0]][index[1]]}", color='cyan')
+
+    return indexes
