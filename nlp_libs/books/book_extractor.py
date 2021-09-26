@@ -191,6 +191,7 @@ def get_crime_mentions(book: ProcessedBook, crime_words: List[str],
                                         p_lookaheads=p_lookaheads,
                                         print_instances=True)
     """
+
     # Create Regex for the crime words
     crime_words_linked = '|'.join(crime_words)
     reg_exp = rf'(?:.*\s(?:{crime_words_linked}).*)'
@@ -215,3 +216,48 @@ def get_crime_mentions(book: ProcessedBook, crime_words: List[str],
             logger.info(f"{book.clean[index[0]][index[1]]}", color='cyan')
 
     return indexes
+
+
+def get_crime_details(book: ProcessedBook, crime_mentions: List[Tuple[int, int]], max_dist: int,
+                      left_margin: int = 0, right_margin: int = 2) -> Tuple[str, List[int]]:
+    """
+    Takes a list of crime mentions links sentences around mentions that are close to the first one.
+    :param book:
+    :param crime_mentions:
+    :param max_dist:
+    :param left_margin:
+    :param right_margin:
+    :return: The crime details as a string
+
+    Usage Example
+    crime_details, indices = get_crime_details(book=staircase,
+                                               crime_mentions=crime_mentions,
+                                               max_dist=10,
+                                               left_margin=0,
+                                               right_margin=2,)
+    """
+
+    def get_close_mentions(mentions):
+        """ Keep only close mentions. Everytime you find a mention,
+        recalculate the index of the mention. """
+        closest_mention_sentence = first_mention_sentence
+        _close_mentions = []
+        for mention in mentions:
+            if mention[1] - closest_mention_sentence <= max_dist:
+                _close_mentions.append(mention)
+                closest_mention_sentence = mention[1]
+        return _close_mentions
+
+    (first_mention_chapter, first_mention_sentence) = crime_mentions[0]
+    # Get all mentions that are in the same chapter as the first mention
+    mentions_in_same_chapter = list(filter(lambda mention: mention[0] == first_mention_chapter,
+                                           crime_mentions))
+    # Get all mentions from same chapter that are within "max_dist" distance
+    close_mentions_idx = get_close_mentions(mentions_in_same_chapter)
+    # Link the mentions
+    close_mentions_range = range(close_mentions_idx[0][1] - left_margin,
+                                 close_mentions_idx[-1][1] + 1 + right_margin)
+    close_mentions = [book.clean[first_mention_chapter][mention] for mention in close_mentions_range]
+    crime_details = '. '.join(close_mentions)
+
+    return crime_details, close_mentions_idx
