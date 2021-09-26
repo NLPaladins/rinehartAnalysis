@@ -1,10 +1,11 @@
 import urllib.request
-import re
-from typing import *
+from nlp_libs import Configuration, ColorizedLogger
 import numpy as np
 import urllib.request
 import re
 from typing import *
+
+logger = ColorizedLogger(logger_name='Process Book', color='cyan')
 
 
 class ProcessedBook:
@@ -13,9 +14,10 @@ class ProcessedBook:
                (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
     title: str
     url: str
-    detectives: List[str]
-    suspects: List[str]
-    crime_type: str
+
+    # detectives: List[str]
+    # suspects: List[str]
+    # crime_type: str
 
     def __init__(self, title: str, metadata: Dict):
         """
@@ -25,14 +27,17 @@ class ProcessedBook:
         """
         self.title = title
         self.url = metadata['url']
-        self.detectives = metadata['detectives']
-        self.suspects = metadata['suspects']
-        self.crime_type = metadata['crime_type']
+        # self.detectives = metadata['detectives']
+        # self.suspects = metadata['suspects']
+        # self.crime_type = metadata['crime_type']
         self.raw = self.read_book_from_proj_gut(self.url)
-        self.raw_lower = self.raw.lower()
 
-        self.lines = self.clean_lines(raw=self.raw)
-        self.lines_lower = self.clean_lines(raw=self.raw_lower)
+        self.raw_lower = self.raw.lower()
+        self.raw_no_new_lines = re.sub(r'\r\n', r'\n', self.raw)
+        self.raw_no_new_lines_lower = re.sub(r'\r\n', r'\n', self.raw_lower)
+
+        self.lines = self.clean_lines(raw=self.raw_no_new_lines)
+        self.lines_lower = self.clean_lines(raw=self.raw_no_new_lines_lower)
         self.clean_lower, self.clean = self.get_clean_books()
 
     @staticmethod
@@ -43,11 +48,11 @@ class ProcessedBook:
         return page.decode('utf-8')
 
     def get_clean_books(self) -> Tuple[List[str], List[str]]:
-        return self.lines_to_chapters(self.lines_lower), self.lines_to_chapters(self.lines)
+        # return self.lines_to_chapters(self.lines_lower), self.lines_to_chapters(self.lines)
+        return None, self.lines_to_chapters(self.lines)
 
     def clean_lines(self, raw: str) -> List[str]:
-        lines = re.sub(r'\r\n', r'\n', raw)
-        lines = re.findall(r'.*(?=\n)', lines)
+        lines = re.findall(r'.*(?=\n)', raw)
         clean_lines = []
         start = False
         for line in lines:
@@ -63,25 +68,50 @@ class ProcessedBook:
                 clean_lines.append(line)
         return clean_lines
 
+    def print_info(self):
+        logger.info(f'The raw length of this book as a string is {len(self.raw)}')
+        logger.info(f'This book has {len(self.clean)} chapters\n')
+        for i, chapter in enumerate(self.clean):
+            if i == 5: break
+            logger.info(f'{chapter[0]} - {chapter[1]}')
+            logger.info(f'There are {len(chapter)} sentences in this chapter.')
+            num_words = []
+            for sent in chapter:
+                num_words.append(len(sent.split(' ')))
+            avg_words = np.mean(num_words)
+            logger.info(f'The average sentence length in this chapter is {avg_words} words\n')
+
+    def __str__(self):
+        self.print_info()
+
     @staticmethod
     def lines_to_chapters(lines: List[str]) -> List[str]:
         chapters = []
         sentences = []
         current_sent = ''
+        add_chapter_state = 0
         for i, line in enumerate(lines):
             # add chapter as 1st sentence
             if re.match(r'^chapter [ivxlcdm]+\.$', line, re.IGNORECASE):
                 if sentences:
                     chapters.append(sentences)
                 sentences = [line]
-                add_chapter_title = True
+                add_chapter_state = 1
                 continue
             # add chapter title as 2nd sentence
-            elif add_chapter_title:
+            elif add_chapter_state == 1:
                 sentences.append(line)
-                add_chapter_title = False
+                add_chapter_state = 2
                 continue
-            sents = re.findall(r' *((?:mr\.|mrs.|[^\.\?!])*)(?<!mr)(?<!mrs)[\.\?!]', line, re.IGNORECASE)
+            # If it is the first normal line add a ". " before the line so the third regex can
+            # match it. Otherwise it's unmatchable.
+            if add_chapter_state == 2:
+                line = '. ' + line
+                add_chapter_state = 3
+
+            sents = re.findall(r'\s*(?:(?=[“”])(?:(.*?”(?:mr\.|mrs.|[^\.\?!])*(?<!mr)(?<!mrs))[\.\?!])|(?![“”])(?:((?:mr\.|mrs.|[^\.\?!])*(?<!mr)(?<!mrs))[\.\?!]))',
+                               line,
+                               re.IGNORECASE)
             # if no sentence end is detected
             if not sents:
                 if current_sent == '':
@@ -91,16 +121,27 @@ class ProcessedBook:
             # if at least one sentence end is detected
             else:
                 for group in sents:
+                    if group[0] is None or group[0] == '':
+                        group = group[1]
+                    else:
+                        group = group[0]
                     if current_sent != '':
                         current_sent += ' ' + group
                         sentences.append(current_sent)
-                    else:
+                    elif group != '':
                         sentences.append(group)
                     current_sent = ''
+
                 # set the next sentence to its start if there is one
-                sent_end = re.search(r'(?<!mr)(?<!mrs)[\.\?!] ((?:mr\.|mrs\.|[^\.\?!])*)$', line, re.IGNORECASE)
+                sent_end = re.search(r'(?<!mr)(?<!mrs)(?:(?:[\.\?!] )(?:(?:(?![“”])((?:mr\.|mrs\.|[^\.\?!]|[\.\?!]”)*))|(?:(?=[“”])([^”]*?”*(?:mr\.|mrs\.|[^\.\?!])*))))$',
+                                     line,
+                                     re.IGNORECASE)
                 if sent_end is not None:
-                    current_sent = sent_end.groups()[0]
+                    sent_end_groups = sent_end.groups()
+                    if sent_end_groups[0] is None:
+                        current_sent = sent_end.groups()[1]
+                    else:
+                        current_sent = sent_end.groups()[0]
         return chapters
 
     @staticmethod
