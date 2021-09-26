@@ -97,3 +97,39 @@ def create_named_dictionary(unique_person_list):
     alias_dictionary = createNamedDictionary(unambiguous_person_list)
 
     return alias_dictionary
+
+def get_earliest_chapter_sentence_from_name_lists(book, name_lists, n=0, first=True):
+    '''
+    Takes in a list of lists, where
+    each list in this list of lists is a
+    list of aliases for a single character.
+    
+    Returns a dictionary with character names
+    as keys and a list with chapter number as
+    the first element and sentence number as the
+    second element.
+    '''
+    first_mentioned = {}
+    for idx, aliases in enumerate(other_suspects):
+        alias_matcher = '|'.join(aliases)
+        found_match = False
+        for chapter_num, chapter in enumerate(book.clean):
+            for sent_num, sentence in enumerate(chapter[2:]):
+                match = re.search(alias_matcher, sentence)
+                if match:
+                    if not found_match:
+                        first_mentioned[aliases[0]] = [chapter_num + 1, sent_num + 1, []]
+                    found_match = True
+                    if n > 0:
+                        words = get_n_words(book, alias_matcher, chapter_num, sent_num, n)
+                        first_mentioned[aliases[0]][-1].append(words)
+                    if first:
+                        break
+            if first and found_match:
+                break
+    return first_mentioned
+
+def get_n_words(book, alias_matcher, chapter_num, sent_num, n):
+    sents = ' '.join(book.clean[chapter_num][sent_num + 1: sent_num + 4])
+    words = re.search('((?:\S+ ){0,' + str(n) + '}\S?(?:' + alias_matcher + ')\S?(?: \S+){0,' + str(n) + '})', sents).group(0)
+    return words
