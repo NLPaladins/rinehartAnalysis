@@ -1,5 +1,6 @@
 import urllib.request
 from nlp_libs import Configuration, ColorizedLogger
+from copy import deepcopy
 import numpy as np
 import urllib.request
 import re
@@ -23,7 +24,7 @@ class ProcessedBook:
         """
         raw holds the books as a single string.
         clean holds the books as a list of lowercase lines starting
-        from the first chapter and ending with the last sentence.
+        # from the first chapter and ending with the last sentence.
         """
         self.title = title
         self.url = metadata['url']
@@ -49,14 +50,21 @@ class ProcessedBook:
 
     def get_clean_books(self) -> Tuple[List[str], List[str]]:
         # return self.lines_to_chapters(self.lines_lower), self.lines_to_chapters(self.lines)
-        return None, self.lines_to_chapters(self.lines)
+        clean_chapters_capitalized = self.lines_to_chapters(self.lines)
+        clean_chapters_copy_for_lower = deepcopy(clean_chapters_capitalized)
+
+        for chapter_idx in range(len(clean_chapters_copy_for_lower)): 
+            for line_idx in range(len(clean_chapters_copy_for_lower[chapter_idx])): 
+                clean_chapters_copy_for_lower[chapter_idx][line_idx] = clean_chapters_copy_for_lower[chapter_idx][line_idx].lower()
+
+        return clean_chapters_copy_for_lower, clean_chapters_capitalized
 
     def clean_lines(self, raw: str) -> List[str]:
         lines = re.findall(r'.*(?=\n)', raw)
         clean_lines = []
         start = False
         for line in lines:
-            if re.match(r'^chapter i\.', line, re.IGNORECASE):
+            if re.match(r'^chapter i\.?', line, re.IGNORECASE):
                 clean_lines.append(line)
                 start = True
                 continue
@@ -92,7 +100,7 @@ class ProcessedBook:
         add_chapter_state = 0
         for i, line in enumerate(lines):
             # add chapter as 1st sentence
-            if re.match(r'^chapter [ivxlcdm]+\.$', line, re.IGNORECASE):
+            if re.match(r'^chapter [ivxlcdm]+\.?$', line, re.IGNORECASE):
                 if sentences:
                     chapters.append(sentences)
                 sentences = [line]
@@ -156,8 +164,14 @@ class ProcessedBook:
     @staticmethod
     def get_characters_per_chapter(chapter):
         found_character_list = []
-        search_string = re.compile(rf'[A-Z][a-z]+(?:\s|,|.|\.\s)[A-Z][a-z]+(?:\s[A-Z][a-z]+)?')
-        # get characters per sentence in chapter
+        singular_or_multiple_names = '[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+(?:(?:\s|,|.|\.\s)[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+)?(?:\s[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+)?(?:\s[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+)?'
+        # TODO: Executive decision occurred on the search string to ignore the
+        #       first word of each sentence as regex cannot differentiate between
+        #       a singular word and a name.  However, this does introduce a curious
+        #       thing with McKnight in the man in the lower ten, such that we get him
+        #.      as "Knight".
+        search_string = re.compile(fr'(?<!“)(?<!‘)(?<!^)({singular_or_multiple_names})')
+        #get characters per sentence in chapter
         for sentence in chapter:
             res = re.findall(search_string, sentence)
             found_character_list.append(res)
@@ -165,36 +179,47 @@ class ProcessedBook:
         unique_characters = list(np.concatenate(found_character_list))
         return found_character_list, unique_characters
 
-    ##
-    ## @Warning: Currently only works with all text as upper case.
-    ##
-    def get_all_characters_per_novel(self):
-        preceding_words_to_ditch = ['After', 'Although', 'And', 'As', 'At',
-                                    'Before', 'Both', 'But', 'Did', 'For',
-                                    'Good', 'Had', 'Has', 'Home', 'If', 'Is',
-                                    'Leaving', 'Like', 'No', 'Nice', 'Old', 'On', 'Or',
-                                    'Poor', 'Send', 'So', 'That', 'Tell', 'The', 'Thank',
-                                    'To', 'Was', 'Whatever', 'When', 'Where', 'While',
-                                    'With', 'Your',
-                                    # Specific Places
-                                    'African', 'Zion', 'New', 'Country', 'Greenwood', 'Western',
-                                    'American', 'Bar', 'Chestnut', 'Queen'
-                                    ]
 
-        book_by_chapter = self.clean
+    def get_all_characters_per_novel(self):
+        preceding_words_to_ditch = [
+            'After', 'Although', 'And', 'As', 'At',
+            'Before', 'Both', 'But', 'Did', 'For',
+            'Good', 'Had', 'Has', 'Home', 'If', 'Is',
+            'Leaving', 'Like', 'No', 'Nice', 'Old', 'On', 'Or',
+            'Poor', 'Send', 'So', 'That', 'Tell', 'The', 'Thank',
+            'To', 'Was', 'Whatever', 'When', 'Where', 'While',
+            'With', 'Your', 'View',
+            #Specific Places
+            'African', 'Brewing', 'Hospital', 'Zion', 'New', 'Country',
+            'Greenwood', 'Western', 'American', 'Bar', 'Chestnut', 'Queen',
+            'Summitville', 'Union', 'City', "Japan", "Europe", "Company",
+            "Street", "Station", "Bank", "Weekly", "ville", "Providence",
+            "Creek", "Brewing", 'California', 'Italian', 'London', 'French',
+            'Scotland'
+        ]
+
+        book_by_chapter =self.clean
+
         totalUniqueList = []
+        characterProgressionList = []
         for chapter in book_by_chapter:
+
             characterProgression, uniqueCharacters = self.get_characters_per_chapter(chapter)
+
+            characterProgressionList.append(characterProgression)
             totalUniqueList = [*totalUniqueList, *uniqueCharacters]
 
         totalUnique = set(totalUniqueList)
 
         joined_preceding_words_to_lose = '|'.join(preceding_words_to_ditch)
-        preceding_word_to_lose_regex = fr'^(?!{joined_preceding_words_to_lose}).*$'
+        #not even preceding - just ditch them if they're within the "name"
+        preceding_word_to_lose_regex = fr'^(?!.*({joined_preceding_words_to_lose})).*'
         regex = re.compile(preceding_word_to_lose_regex)
+
         filtered_people = list(filter(regex.match, totalUnique))
 
-        return filtered_people
+        return filtered_people, characterProgressionList
+
 
     def get_chapter(self, chapter: int, lower=True) -> str:
         if lower:
