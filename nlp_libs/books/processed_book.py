@@ -1,6 +1,7 @@
 import urllib.request
 from nlp_libs import Configuration, ColorizedLogger
 from copy import deepcopy
+from nlp_libs import ColorizedLogger
 import numpy as np
 import urllib.request
 import re
