@@ -48,14 +48,14 @@ class ProcessedBook:
         return page.decode('utf-8')
 
     def get_clean_books(self) -> Tuple[List[str], List[str]]:
-        # return self.lines_to_chapters(self.lines_lower), self.lines_to_chapters(self.lines)
-        return None, self.lines_to_chapters(self.lines)
+        return self.lines_to_chapters(self.lines_lower), self.lines_to_chapters(self.lines)
 
     def clean_lines(self, raw: str) -> List[str]:
         lines = re.findall(r'.*(?=\n)', raw)
         clean_lines = []
         start = False
         for line in lines:
+            line = re.sub(r'([’‘])', '', line)
             if re.match(r'^chapter i\.', line, re.IGNORECASE):
                 clean_lines.append(line)
                 start = True
