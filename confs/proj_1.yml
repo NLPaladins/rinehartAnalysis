@@ -5,93 +5,298 @@ data_loader:
       The_Circular_Staircase:
         url: https://www.gutenberg.org/files/434/434-0.txt
         detectives:
-          - Rachel Innes
+          - Rachel Innes: 
+            - Rachel Innes
+            - Miss Rachel
+            - Aunt Rachel
+            - Rachel
         suspects:
-          - Liddy
-          - Halsey
-          - Gertrude
-          - Paul Armstrong
-          - Doctor Walker
-          - Louise Armstrong
-          - Arnold Armstrong
-          - Mrs. Ralston
-          - Thomas Johnson
-          - Aunt Ray
-          - Mary Anne
-          - Burke
-          - Joe Jefferson
-          - Anne Watson
-          - Eliza Klinefelter
-          - Beulah
-          - Jack Bailey
-          - Mr. Jarvis
-          - Warner
-          - Mr. Jamieson
-          - Mr. Harton
-          - Rosie
-          - Sam Bohannon
-          - Beatrice Fairfax
-          - Mrs. Ogden Fitzhugh
-          - Mr. Trautman
-          - Doctor Stewart
-          - Doctor Wainwright
-          - Alexander Graham
-          - Nina Carrington
-          - Doctor Willoughby
-          - Riggs
-          - Covingtons
-          - Sam Huston
-          - Anne Endicott
-          - Barbara Fitzhugh
-          - Lucien Wallace
-          - Anna Whitcomb
-          - Madame Sweeny
-          - Sam Bohannon
-          - Ella Stewart
-          - Annie Morton
-          - Matthew Geist
-          - Mattie Bliss
-          - Doctor Boyle
+          - Halsey Innes:
+            - Halsey Innes
+            - Halsey
+          - Gertrude Innes:
+            - Gertrude Innes
+            - Miss Gertrude
+            - Gertrude
+            - Trude
+          - Jamieson:
+            - Jamieson
+          - Liddy Allen:
+            - Liddy Allen
+            - Miss Liddy
+            - Liddy
+          - Louise Armstrong:
+            - Louise Armstrong
+            - Miss Louise
+            - Louise
+          - Thomas Johnson:
+            - Thomas Johnson
+            - Thomas
+          - Arnold Armstrong:
+            - Arnold Armstrong
+            - Arnold
+            - Armstrong
+          - Alex:
+            - Alex
+          - Doctor Walker:
+            - Doctor Walker
+            - Walker
+          - Anne Watson:
+            - Anne Watson
+            - Watson
+          - Casanova:
+            - Casanova
+          - Rosie:
+            - Rosie
+          - Jack Bailey:
+            - Jack Bailey
+            - Jack
+            - John Bailey
+            - John
+          - Warner:
+            - Warner
+          - Lucien Wallace:
+            - Lucien Wallace
+            - Lucien
+          - Doctor Stewart:
+            - Doctor Stewart
+            - Stewart
+          - Paul Armstrong:
+            - Paul Armstrong
+          - Walker:
+            - Walker
+          - Jarvis:
+            - Jarvis
+          - Nina Carrington:
+            - Nina Carrington
+            - Carrington
+          - Mary Anne:
+            - Mary Anne
+            - Mary
+          - Winters:
+            - Winters
+          - Harton:
+            - Harton
+          - Eliza Klinefelter:
+            - Eliza Klinefelter
+            - Eliza
         crime_type: example
       The_Man_in_Lower_Ten:
         url: https://www.gutenberg.org/files/1869/1869-0.txt
         detectives:
+          - Richey McKnight: 
+            - Richey McKnight
+            - McKnight
+            - Richey
+        suspects:
+          - Wilson Budd Hotchkiss:
+            - Wilson Budd Hotchkiss
+            - Hotchkiss
+          - Henry Pinckney Sullivan:
+            - Henry Pinckney Sullivan
+            - Henry Sullivan
+            - Sullivan
+          - Alison West:
+            - Alison West
+            - Alison
+            - Miss West
+          - Klopton: 
+            - Klopton
+          - Lawrence Blakeley: 
+            - Lawrence Blakeley
+            - Lawrence
+            - Blakeley
+          - Bronson: 
+            - Bronson
+          - Francis Johnson: 
+            - Francis Johnson
+            - Johnson
+          - Alice Curtis:
+            - Alice Curtis
+            - Alice
+            - Curtis 
+          - Carter: 
+            - Carter
+        crime_type: murder
+      The_After_House:
+        url: https://gutenberg.org/files/2358/2358-0.txt
+        detective:
+          - detective
+        suspects: 
+          - Marshall Benedict Turner:
+            - Marshall Benedict Turner
+            - Marshall Turner
+            - Marshall
+            - Benedict Turner
+            - Mistah Turner
+            - Turner
+          - John Robert Burns:
+            - John Robert Burns
+            - John
+            - Burns
+          - Mate Singleton:
+            - Mate Singleton
+            - Singleton 
+          - Wilmer Vail:
+            - Wilmer Vail
+            - Wilmer 
+            - Vail 
+          - Charlie Jones:
+            - Charlie Jones
+            - Charlie
+            - Jones 
+          - Obadiah Williams:
+            - Obadiah Williams 
+            - Williams
+          - Karen Hansen: 
+            - Karen Hansen
+            - Karen
+          - McWhirter: 
+            - McWhirter
+          - Miss Elsa: 
+            - Miss Elsa
+            - Elsa
+          - Adams: 
+            - Adams
+          - William McNamara:
+            - William McNamara
+            - McNamara
+          - Henrietta Sloane:
+            - Henrietta Sloane  
+            - Sloane
+          - John Oleson:  
+            - John Oleson
+            - Swede Oleson
+            - Swede
+            - Oleson
+          - Schwartz:  
+            - Schwartz
+          - Clarke:  
+            - Clarke
+        crime_type:  examp
+      The_Case_of_Jennie_Brice:
+        url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
+        detective:
+          - man1
+        suspects: 
+          - Philip Ladley:
+            - Philip Ladley
+            - Philip
+            - Ladley 
+          - Jennie Ladley:
+            - Jennie Ladley
+            - Jennie
+          - Jennie Brice:
+            - Jennie Brice
+            - Jennie
+          - Elizabeth Marie Pitman:
+            - Elizabeth Marie Pitman
+            - Pitman
+          - Holcombe:
+            - Holcombe
+          - Ellis Howell:
+            - Ellis Howell
+            - Howell
+          - Reynolds:
+            - Reynolds
+          - Peter:
+            - Peter
+          - Lida Harvey:
+            - Lida Harvey
+            - Miss Harvey
+            - Miss Lida
+            - Lida
+          - Graves:
+            - Graves
+          - Horner:
+            - Horner
+          - Alma:
+            - Alma
+          - James Bronson:
+            - James Bronson
+            - Bronson
+          - Eliza Shaeffer:
+            - Eliza Shaeffer
+            - Miss Eliza
+          - Miss Hope:
+            - Miss Hope
+          - Terry:
+            - Terry
+
+        crime_type:  example
+      K: 
+        url: https://www.gutenberg.org/files/9931/9931-0.txt
+        detective:
           - man1
           - man2
-        suspects:
-          - man3
-          - man4
-        crime_type: example
-      The_Breaking_Point:
-        url: https://www.gutenberg.org/files/1601/1601-0.txt
-        detectives:
-          - man1
-          - man2
-        suspects:
-          - man3
-          - man4
-        crime_type: example
-      Oh,_Well,_You_Know_How_Women_Are!:
-        url: https://www.gutenberg.org/cache/epub/24259/pg24259.txt
-        detectives:
-          - man1
-          - man2
-        suspects:
-          - man3
-          - man4
-        crime_type: example
-      The_Window_at_the_White_Cat:
-        url: https://www.gutenberg.org/cache/epub/24259/pg24259.txt
-        detectives:
-          - man1
-          - man2
-        suspects:
-          - man3
-          - man4
-        crime_type: example
+        suspects: 
+          - Sidney Page:
+            - Sidney Page
+            - Miss Sidney
+            - Miss Page
+            - Sidney
+          - Moyne:
+            - Moyne
+          - Christine Lorenz:
+            - Christine Lorenz
+            - Christine
+            - Lorenz
+          - Christine Howe:
+            - Christine Howe
+          - Wilson Marriage:  
+            - Wilson Marriage
+            - Wilson
+          - Carlotta Harrison:
+            - Carlotta Harrison
+            - Carlotta
+            - Miss Harrison
+            - Harrison
+          - Tillie:
+            - Tillie
+          - Palmer Howe:
+            - Palmer Howe
+            - Palmer
+            - Howe
+          - Harriet Kennedy:
+            - Harriet Kennedy
+            - Aunt Kennedy
+            - Harriet
+          - Schwitter:
+            - Schwitter
+          - Johnny Rosenfeld:
+            - Johnny Rosenfeld
+            - Johnny
+            - Rosenfeld
+          - McKee:
+            - McKee
+          - Katie:
+            - Katie
+          - Anna Page:
+            - Anna Page
+            - Anna
+          - Drummond:
+            - Drummond
+          - Grace Irving:
+            - Grace Irving
+            - Grace
+          - Reginald:
+            - Reginald
+          - Edwardes:
+            - Edwardes
+          - Bill Taft:
+            - Bill Taft
+            - Bill
+          - Miss Gregg:
+            - Miss Gregg
+            - Gregg
+        crime_type:  example
 
 
-# --- More books --- #
+
+
+
+
+# --- More books --- 
 # The_Window_at_the_White_Cat: https://www.gutenberg.org/cache/epub/34020/pg34020.txt
 # The_Amazing_Interlude: https://www.gutenberg.org/cache/epub/1590/pg1590.txt
 # Dangerous_Days: https://www.gutenberg.org/files/1693/1693-0.txt
@@ -111,5 +316,7 @@ data_loader:
 # A_Poor_Wise_Man: https://www.gutenberg.org/files/1970/1970-0.txt
 # The_Truce_of_God: https://www.gutenberg.org/cache/epub/14573/pg14573.txt
 # More_Tish: https://www.gutenberg.org/cache/epub/19851/pg19851.txt
-# Where_There's_A_Will: https://www.gutenberg.org/cache/epub/330/pg330.txt
+# Where_Theres_A_Will: https://www.gutenberg.org/cache/epub/330/pg330.txt
+
+
 # K: https://www.gutenberg.org/files/9931/9931-0.txt
