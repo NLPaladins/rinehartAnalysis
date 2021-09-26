@@ -137,10 +137,6 @@ data_loader:
           - Mate Singleton:
             - Mate Singleton
             - Singleton 
-          - Wilmer Vail:
-            - Wilmer Vail
-            - Wilmer 
-            - Vail 
           - Charlie Jones:
             - Charlie Jones
             - Charlie
@@ -153,7 +149,8 @@ data_loader:
             - Karen
           - McWhirter: 
             - McWhirter
-          - Miss Elsa: 
+          - Elsa Lee: 
+            - Miss Lee 
             - Miss Elsa
             - Elsa
           - Adams: 
@@ -173,7 +170,15 @@ data_loader:
             - Schwartz
           - Clarke:  
             - Clarke
-        crime_type:  examp
+        victim: 
+          - Wilmer Vail:
+            - Wilmer Vail
+            - Wilmer 
+            - Vail 
+          - Captain Richardson: 
+            - Richardson
+        crime_type:  Murder by Axe
+
       The_Case_of_Jennie_Brice:
         url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
         detective:
