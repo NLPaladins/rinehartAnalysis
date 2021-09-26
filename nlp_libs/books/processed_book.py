@@ -1,11 +1,11 @@
 import urllib.request
-from nlp_libs import ColorizedLogger
 from copy import deepcopy
-from nlp_libs import ColorizedLogger
 import numpy as np
 import urllib.request
 import re
 from typing import *
+
+from nlp_libs.fancy_logger.colorized_logger import ColorizedLogger
 
 logger = ColorizedLogger(logger_name='Process Book', color='cyan')
 

@@ -1,7 +1,8 @@
 import re
 from typing import *
 import numpy as np
-from nlp_libs import ColorizedLogger, ProcessedBook
+from nlp_libs.fancy_logger.colorized_logger import ColorizedLogger
+from .processed_book import ProcessedBook
 
 logger = ColorizedLogger(logger_name='Book Extractor', color='yellow')
 
@@ -61,111 +62,116 @@ def createNamedDictionary(personList):
     return name_dictionary
 
 
-def extract_surnames(unique_person_list): 
+def extract_surnames(unique_person_list):
     surname_list = []
     # first pass: go through, get break of first / lasts
     for name in unique_person_list:
         name_split_no_title = re.findall(r'(?!Mr\.|Mrs\.|Miss|Doctor)[A-Z][a-z]+', name)
         surname = '' if len(name_split_no_title) <= 1 else name_split_no_title[1]
 
-        if surname != '' and surname: 
+        if surname != '' and surname:
             surname_list.append(surname)
 
     return set(surname_list)
 
 
-def obtain_aliases_for_book(unique_person_list): 
+def obtain_aliases_for_book(unique_person_list):
     unique_person_list.sort(key=len, reverse=True)
     alias_dictionary = {}
     title_regex = r'^(?:Mr\.|Mrs\.|Miss|Doctor)'
     name_with_no_title_regex = r'(?!Mr\.|Mrs\.|Miss|Doctor|Aunt)[A-Z][a-z]+'
     surnames = extract_surnames(unique_person_list)
-    
-    for personIdx in range(len(unique_person_list)): 
-        if len(alias_dictionary.keys()) == 0: 
-            alias_dictionary[unique_person_list[personIdx]] = [unique_person_list[personIdx]]
 
+    for personIdx in range(len(unique_person_list)):
+        if len(alias_dictionary.keys()) == 0:
+            alias_dictionary[unique_person_list[personIdx]] = [unique_person_list[personIdx]]
 
         comparator_person = unique_person_list[personIdx]
         title_comparator_person = re.findall(title_regex, comparator_person)
         name_split_no_title_comparator_person = re.findall(name_with_no_title_regex, comparator_person)
 
-        if len(alias_dictionary.values()) > 0 and comparator_person in list(np.concatenate(list(alias_dictionary.values()))):
+        if len(alias_dictionary.values()) > 0 and comparator_person in list(
+                np.concatenate(list(alias_dictionary.values()))):
             continue
-#         print(comparator_person)
-#         print(title_comparator_person, name_split_no_title_comparator_person)
+        #         print(comparator_person)
+        #         print(title_comparator_person, name_split_no_title_comparator_person)
 
-
-        if len(name_split_no_title_comparator_person) == 0: 
-    #         raise('ZERO? ', comparator_person, name_split_no_title_comparator_person)
+        if len(name_split_no_title_comparator_person) == 0:
+            #         raise('ZERO? ', comparator_person, name_split_no_title_comparator_person)
             continue
-        surname_comparator_person = '' if len(name_split_no_title_comparator_person) <= 1 else name_split_no_title_comparator_person[1]
+        surname_comparator_person = '' if len(name_split_no_title_comparator_person) <= 1 else \
+        name_split_no_title_comparator_person[1]
         first_name_comparator_person = name_split_no_title_comparator_person[0]
 
-        for next_person_index in range(personIdx, len(unique_person_list)):     
+        for next_person_index in range(personIdx, len(unique_person_list)):
             next_person = unique_person_list[next_person_index]
             title_next_person = re.findall(title_regex, next_person)
             name_split_no_title_next_person = re.findall(name_with_no_title_regex, next_person)
 
-            if len(name_split_no_title_next_person) == 0: 
-#                 print(f'NEXT PERSON ZERO:{next_person} ')
+            if len(name_split_no_title_next_person) == 0:
+                #                 print(f'NEXT PERSON ZERO:{next_person} ')
                 continue
 
-            if comparator_person == next_person: 
-                alias_dictionary[comparator_person] = [ comparator_person ]
-#                 print("COnTINUING BECAUSE ADDED STUFF")
+            if comparator_person == next_person:
+                alias_dictionary[comparator_person] = [comparator_person]
+                #                 print("COnTINUING BECAUSE ADDED STUFF")
                 continue
 
-            surname_next_person = '' if len(name_split_no_title_next_person) <= 1 else name_split_no_title_next_person[1]
+            surname_next_person = '' if len(name_split_no_title_next_person) <= 1 else \
+            name_split_no_title_next_person[1]
             first_name_next_person = name_split_no_title_next_person[0]
 
-#             print('\t\t',next_person)
-#             print('\t\t',title_next_person, name_split_no_title_next_person, f'SURNAME {len(name_split_no_title_next_person)} {surname_next_person}')
+            #             print('\t\t',next_person)
+            #             print('\t\t',title_next_person, name_split_no_title_next_person, f'SURNAME {len(name_split_no_title_next_person)} {surname_next_person}')
 
-            if first_name_next_person in surnames: 
-#                 print("\t::::::::NAME IN SURNAMES::::::::", title_next_person, name_split_no_title_next_person)
+            if first_name_next_person in surnames:
+                #                 print("\t::::::::NAME IN SURNAMES::::::::", title_next_person, name_split_no_title_next_person)
                 continue
 
-            if first_name_comparator_person == first_name_next_person and len(first_name_next_person) > 0: 
+            if first_name_comparator_person == first_name_next_person and len(
+                    first_name_next_person) > 0:
 
                 ### SURNAME CHECK GOES HERE *** NEED TO MAKE ABSOLUTELY SURE:
-                if surname_comparator_person != '' and surname_next_person == '': 
-                    alias_dictionary[comparator_person] = [*alias_dictionary[comparator_person] , next_person ]
+                if surname_comparator_person != '' and surname_next_person == '':
+                    alias_dictionary[comparator_person] = [*alias_dictionary[comparator_person],
+                                                           next_person]
                     continue
 
-
-                if surname_comparator_person != '' and surname_next_person != '' and surname_comparator_person != surname_next_person: 
+                if surname_comparator_person != '' and surname_next_person != '' and surname_comparator_person != surname_next_person:
                     continue
 
-
-#                 print("\t\t**********WHOOOOOP**********************",len(first_name_next_person), first_name_next_person, first_name_comparator_person)
-                alias_dictionary[comparator_person] = [*alias_dictionary[comparator_person] , next_person ]
+                #                 print("\t\t**********WHOOOOOP**********************",len(first_name_next_person), first_name_next_person, first_name_comparator_person)
+                alias_dictionary[comparator_person] = [*alias_dictionary[comparator_person],
+                                                       next_person]
                 continue
     return alias_dictionary
 
-def get_dictionary_of_named_occurrences(character_progression): 
+
+def get_dictionary_of_named_occurrences(character_progression):
     namecount = {}
-    for chapter in character_progression: 
-        for line in chapter: 
-            for element in line: 
+    for chapter in character_progression:
+        for line in chapter:
+            for element in line:
                 if element not in namecount.keys():
                     namecount[element] = 1
-                else: 
-                    namecount[element] = namecount[element]+1
-                    
+                else:
+                    namecount[element] = namecount[element] + 1
+
     sorted_dict = {}
-    for key_value in sorted(namecount.items(), key=lambda x: x[1], reverse=True): 
+    for key_value in sorted(namecount.items(), key=lambda x: x[1], reverse=True):
         sorted_dict[key_value[0]] = key_value[1]
     return sorted_dict
 
-def create_alias_occurrence_dictionary(aliases, named_occurrences): 
+
+def create_alias_occurrence_dictionary(aliases, named_occurrences):
     new_named_occurrences = {}
-    for key in aliases.keys(): 
-        for named_occurrence in named_occurrences.keys(): 
-            if named_occurrence in aliases[key]: 
+    for key in aliases.keys():
+        for named_occurrence in named_occurrences.keys():
+            if named_occurrence in aliases[key]:
                 key_exists = key in new_named_occurrences.keys()
                 occurrences = named_occurrences[named_occurrence]
-                new_named_occurrences[key] =  occurrences if not key_exists else  new_named_occurrences[key] + occurrences 
+                new_named_occurrences[key] = occurrences if not key_exists else new_named_occurrences[
+                                                                                    key] + occurrences
 
     return new_named_occurrences
 
@@ -273,7 +279,7 @@ def get_crime_mentions(book: ProcessedBook, crime_words: List[str],
     indexes = []
     for chapter_ind, chapter in enumerate(book.clean):
         for line_ind, line in enumerate(chapter):
-            if re.match(reg_exp, line):
+            if re.match(reg_exp, line, re.IGNORECASE):
                 indexes.append((chapter_ind, line_ind))
 
     if print_instances:
