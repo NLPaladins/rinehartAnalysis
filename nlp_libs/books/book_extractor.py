@@ -57,46 +57,114 @@ def createNamedDictionary(personList):
     return name_dictionary
 
 
-def extract_surnames(unique_person_list):
+def extract_surnames(unique_person_list): 
     surname_list = []
-    names_to_ignore = ['Anne']
     # first pass: go through, get break of first / lasts
     for name in unique_person_list:
         name_split_no_title = re.findall(r'(?!Mr\.|Mrs\.|Miss|Doctor)[A-Z][a-z]+', name)
-        surname = '' if len(name_split_no_title) == 1 else name_split_no_title[1]
+        surname = '' if len(name_split_no_title) <= 1 else name_split_no_title[1]
 
-        if surname != '' and surname not in names_to_ignore:
+        if surname != '' and surname: 
             surname_list.append(surname)
 
     return set(surname_list)
 
 
-def get_unambiguous_name_list(unique_person_list, surname_list):
-    unambiguous_name_list = []
-    for name in unique_person_list:
-        name_split_no_title = re.findall(r'(?!Mr\.|Mrs\.|Miss|Doctor)[A-Z][a-z]+', name)
-        first_name = name_split_no_title[0]
-
-        if first_name not in surname_list:
-            unambiguous_name_list.append(name)
-        else:
-            print(f"Name {name} is ambiguous. Not processing")
-    return unambiguous_name_list
-
-
-def create_named_dictionary(unique_person_list):
-    title_regex = r'^(?:Mr\.|Mrs\.|Miss|Doctor)'
-    no_title_regex = r'(?!Mr\.|Mrs\.|Miss|Doctor)[A-Z][a-z]+'
+def obtain_aliases_for_book(unique_person_list): 
     unique_person_list.sort(key=len, reverse=True)
-    unique_person_key = {}
-    name_dictionary = {}
+    alias_dictionary = {}
+    title_regex = r'^(?:Mr\.|Mrs\.|Miss|Doctor)'
+    name_with_no_title_regex = r'(?!Mr\.|Mrs\.|Miss|Doctor|Aunt)[A-Z][a-z]+'
+    surnames = extract_surnames(unique_person_list)
+    
+    for personIdx in range(len(unique_person_list)): 
+        if len(alias_dictionary.keys()) == 0: 
+            alias_dictionary[unique_person_list[personIdx]] = [unique_person_list[personIdx]]
 
-    surname_list = extract_surnames(unique_person_list)
-    unambiguous_person_list = get_unambiguous_name_list(unique_person_list, surname_list)
 
-    alias_dictionary = createNamedDictionary(unambiguous_person_list)
+        comparator_person = unique_person_list[personIdx]
+        title_comparator_person = re.findall(title_regex, comparator_person)
+        name_split_no_title_comparator_person = re.findall(name_with_no_title_regex, comparator_person)
 
+        if len(alias_dictionary.values()) > 0 and comparator_person in list(np.concatenate(list(alias_dictionary.values()))):
+            continue
+#         print(comparator_person)
+#         print(title_comparator_person, name_split_no_title_comparator_person)
+
+
+        if len(name_split_no_title_comparator_person) == 0: 
+    #         raise('ZERO? ', comparator_person, name_split_no_title_comparator_person)
+            continue
+        surname_comparator_person = '' if len(name_split_no_title_comparator_person) <= 1 else name_split_no_title_comparator_person[1]
+        first_name_comparator_person = name_split_no_title_comparator_person[0]
+
+        for next_person_index in range(personIdx, len(unique_person_list)):     
+            next_person = unique_person_list[next_person_index]
+            title_next_person = re.findall(title_regex, next_person)
+            name_split_no_title_next_person = re.findall(name_with_no_title_regex, next_person)
+
+            if len(name_split_no_title_next_person) == 0: 
+#                 print(f'NEXT PERSON ZERO:{next_person} ')
+                continue
+
+            if comparator_person == next_person: 
+                alias_dictionary[comparator_person] = [ comparator_person ]
+#                 print("COnTINUING BECAUSE ADDED STUFF")
+                continue
+
+            surname_next_person = '' if len(name_split_no_title_next_person) <= 1 else name_split_no_title_next_person[1]
+            first_name_next_person = name_split_no_title_next_person[0]
+
+#             print('\t\t',next_person)
+#             print('\t\t',title_next_person, name_split_no_title_next_person, f'SURNAME {len(name_split_no_title_next_person)} {surname_next_person}')
+
+            if first_name_next_person in surnames: 
+#                 print("\t::::::::NAME IN SURNAMES::::::::", title_next_person, name_split_no_title_next_person)
+                continue
+
+            if first_name_comparator_person == first_name_next_person and len(first_name_next_person) > 0: 
+
+                ### SURNAME CHECK GOES HERE *** NEED TO MAKE ABSOLUTELY SURE:
+                if surname_comparator_person != '' and surname_next_person == '': 
+                    alias_dictionary[comparator_person] = [*alias_dictionary[comparator_person] , next_person ]
+                    continue
+
+
+                if surname_comparator_person != '' and surname_next_person != '' and surname_comparator_person != surname_next_person: 
+                    continue
+
+
+#                 print("\t\t**********WHOOOOOP**********************",len(first_name_next_person), first_name_next_person, first_name_comparator_person)
+                alias_dictionary[comparator_person] = [*alias_dictionary[comparator_person] , next_person ]
+                continue
     return alias_dictionary
+
+def get_dictionary_of_named_occurrences(character_progression): 
+    namecount = {}
+    for chapter in character_progression: 
+        for line in chapter: 
+            for element in line: 
+                if element not in namecount.keys():
+                    namecount[element] = 1
+                else: 
+                    namecount[element] = namecount[element]+1
+                    
+    sorted_dict = {}
+    for key_value in sorted(namecount.items(), key=lambda x: x[1], reverse=True): 
+        sorted_dict[key_value[0]] = key_value[1]
+    return sorted_dict
+
+def create_alias_occurrence_dictionary(aliases, named_occurrences): 
+    new_named_occurrences = {}
+    for key in aliases.keys(): 
+        for named_occurrence in named_occurrences.keys(): 
+            if named_occurrence in aliases[key]: 
+                key_exists = key in new_named_occurrences.keys()
+                occurrences = named_occurrences[named_occurrence]
+                new_named_occurrences[key] =  occurrences if not key_exists else  new_named_occurrences[key] + occurrences 
+
+    return new_named_occurrences
+
 
 def get_earliest_chapter_sentence_from_name_lists(book, name_lists, n=0, first=True):
     '''
