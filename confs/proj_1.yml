@@ -125,14 +125,21 @@ data_loader:
       The_Window_at_the_White_Cat:
         url: https://www.gutenberg.org/cache/epub/34020/pg34020.txt
         detectives:
-          - Test:
-              - test 1
+          - Al Hunter:
+            - al hunter
+            - hunter
         suspects:
-          - Test:
-              - test 1
+          - Harry Wardrop:
+            - harry wardrop
+            - wardrop
+            - harry
+          - Henry Schwartz:
+            - hernry schwartz 
+            - schwartz
         perpetrator:
-          - Test:
-              - test 1
+          - Ellen Butler:
+            - ellen butler
+            - mrs. butler
         crime:
           crime_details:
             or_words:
