@@ -114,13 +114,14 @@ data_loader:
         crime:
           crime_details:
             or_words:
-              - body
-            positive_lookeaheads: null
+              - killed
+            positive_lookeaheads:
+              - captain
           crime_type:
             or_words:
-              - stabbed
+              - pieces
             positive_lookeaheads:
-              - body
+              - cut
       The_Case_of_Jennie_Brice:
         url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
         detectives:
