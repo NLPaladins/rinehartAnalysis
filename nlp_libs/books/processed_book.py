@@ -18,14 +18,16 @@ class ProcessedBook:
     perpetrator: Dict
     crime_details: Dict
     crime_type: Dict
+    bat: bool
 
-    def __init__(self, title: str, metadata: Dict):
+    def __init__(self, title: str, metadata: Dict, bat: bool = False):
         """
         raw holds the books as a single string.
         clean holds the books as a list of lowercase lines starting
         from the first chapter and ending with the last sentence.
         """
         self.title = title
+        self.bat = bat
         self.url = metadata['url']
         self.detectives = metadata['detectives']
         self.suspects = metadata['suspects']
@@ -50,16 +52,8 @@ class ProcessedBook:
         return page.decode('utf-8')
 
     def get_clean_books(self) -> Tuple[List[str], List[str]]:
-        # return self.lines_to_chapters(self.lines_lower), self.lines_to_chapters(self.lines)
-        clean_chapters_capitalized = self.lines_to_chapters(self.lines)
-        clean_chapters_copy_for_lower = deepcopy(clean_chapters_capitalized)
-
-        for chapter_idx in range(len(clean_chapters_copy_for_lower)):
-            for line_idx in range(len(clean_chapters_copy_for_lower[chapter_idx])):
-                clean_chapters_copy_for_lower[chapter_idx][line_idx] = \
-                    clean_chapters_copy_for_lower[chapter_idx][line_idx].lower()
-
-        return clean_chapters_copy_for_lower, clean_chapters_capitalized
+        return self.lines_to_chapters(self.lines_lower, self.bat), \
+               self.lines_to_chapters(self.lines, self.bat)
 
     def clean_lines(self, raw: str) -> List[str]:
         lines = re.findall(r'.*(?=\n)', raw)
@@ -67,10 +61,16 @@ class ProcessedBook:
         start = False
         for line in lines:
             line = re.sub(r'([’‘])', '', line)
-            if re.match(r'^chapter i\.?', line, re.IGNORECASE):
-                clean_lines.append(line)
-                start = True
-                continue
+            if self.bat:
+                if re.match(r'^chapter .*', line, re.IGNORECASE):
+                    clean_lines.append(line)
+                    start = True
+                    continue
+            else:
+                if re.match(r'^chapter i\.?', line, re.IGNORECASE):
+                    clean_lines.append(line)
+                    start = True
+                    continue
             if not start:
                 continue
             if re.match(r'^\*\*\* end of the project gutenberg ebook', line, re.IGNORECASE):
@@ -96,14 +96,18 @@ class ProcessedBook:
         self.print_info()
 
     @staticmethod
-    def lines_to_chapters(lines: List[str]) -> List[str]:
+    def lines_to_chapters(lines: List[str], bat: bool) -> List[str]:
         chapters = []
         sentences = []
         current_sent = ''
         add_chapter_state = 0
         for i, line in enumerate(lines):
             # add chapter as 1st sentence
-            if re.match(r'^chapter [ivxlcdm]+\.?$', line, re.IGNORECASE):
+            if bat:
+                cond = re.match(r'^chapter [a-z]+\.?$', line, re.IGNORECASE)
+            else:
+                cond = re.match(r'^chapter [ivxlcdm]+\.?$', line, re.IGNORECASE)
+            if cond:
                 if sentences:
                     chapters.append(sentences)
                 sentences = [line]
@@ -227,6 +231,6 @@ class ProcessedBook:
             return self.clean[chapter - 1]
 
     def extract_character_names(self):
-        lines_by_chapter = self.lines_to_chapters(self.lines)
+        lines_by_chapter = self.lines_to_chapters(self.lines, self.bat)
         for chapter in lines_by_chapter:
             print(chapter)

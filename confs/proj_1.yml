@@ -41,10 +41,14 @@ data_loader:
             or_words:
               - killed
               - shot
-            positive_lookeaheads: null
+              - body
+            positive_lookeaheads:
+              - revolver
           crime_type:
             or_words:
                 - fired
+                - killed
+                - murdered
             positive_lookeaheads:
                 - bullet
       The_Man_in_Lower_Ten:
