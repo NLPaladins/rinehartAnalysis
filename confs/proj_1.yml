@@ -87,67 +87,67 @@ data_loader:
               - body
       The_After_House:
         url: https://gutenberg.org/files/2358/2358-0.txt
-          detectives:
-            - Test:
-                - test 1
-          suspects:
-            - Test:
-                - test 1
-          perpetrator:
-            - Test:
-                - test 1
-          crime:
-            crime_details:
-              or_words:
-                - body
-              positive_lookeaheads: null
-            crime_type:
-              or_words:
-                - stabbed
-              positive_lookeaheads:
-                - body
+        detectives:
+          - Test:
+            - test 1
+        suspects:
+          - Test:
+            - test 1
+        perpetrator:
+          - Test:
+            - test 1
+        crime:
+          crime_details:
+            or_words:
+              - body
+            positive_lookeaheads: null
+          crime_type:
+            or_words:
+              - stabbed
+            positive_lookeaheads:
+              - body
       The_Case_of_Jennie_Brice:
         url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
         detectives:
           - Test:
               - test 1
-          suspects:
-            - Test:
-                - test 1
-          perpetrator:
-            - Test:
-                - test 1
-          crime:
-            crime_details:
-              or_words:
-                - body
-              positive_lookeaheads: null
-            crime_type:
-              or_words:
-                - stabbed
-              positive_lookeaheads:
-                - body
+        suspects:
+          - Test:
+              - test 1
+        perpetrator:
+          - Test:
+              - test 1
+        crime:
+          crime_details:
+            or_words:
+              - body
+            positive_lookeaheads: null
+          crime_type:
+            or_words:
+              - stabbed
+            positive_lookeaheads:
+              - body
       K: 
         url: https://www.gutenberg.org/files/9931/9931-0.txt
         detectives:
           - Test:
-              - test 1
-          suspects:
-            - Test:
-                - test 1
-          perpetrator:
-            - Test:
-                - test 1
-          crime:
-            crime_details:
-              or_words:
-                - body
-              positive_lookeaheads: null
-            crime_type:
-              or_words:
-                - stabbed
-              positive_lookeaheads:
-                - body
+            - test 1
+        suspects:
+          - Test:
+            - test 1
+        perpetrator:
+          - Test:
+            - test 1
+        crime:
+          crime_details:
+            or_words:
+              - body
+            positive_lookeaheads: null
+          crime_type:
+            or_words:
+              - stabbed
+            positive_lookeaheads:
+              - body
 
 
 
