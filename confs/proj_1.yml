@@ -175,9 +175,9 @@ data_loader:
         crime:
           crime_details:
             or_words:
-              - shot
-            positive_lookeaheads:
               - rang
+            positive_lookeaheads:
+              - shot
           crime_type:
             or_words:
               - shot
