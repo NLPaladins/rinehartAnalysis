@@ -122,55 +122,14 @@ data_loader:
               - pieces
             positive_lookeaheads:
               - cut
-      The_Case_of_Jennie_Brice:
+      The_Window_at_the_White_Cat:
         url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
         detectives:
           - Test:
               - test 1
         suspects:
-          - Philip Ladley:
-            - Philip Ladley
-            - Philip
-            - Ladley
-          - Jennie Ladley:
-            - Jennie Ladley
-            - Jennie
-          - Jennie Brice:
-            - Jennie Brice
-            - Jennie
-          - Elizabeth Marie Pitman:
-            - Elizabeth Marie Pitman
-            - Pitman
-          - Holcombe:
-            - Holcombe
-          - Ellis Howell:
-            - Ellis Howell
-            - Howell
-          - Reynolds:
-            - Reynolds
-          - Peter:
-            - Peter
-          - Lida Harvey:
-            - Lida Harvey
-            - Miss Harvey
-            - Miss Lida
-            - Lida
-          - Graves:
-            - Graves
-          - Horner:
-            - Horner
-          - Alma:
-            - Alma
-          - James Bronson:
-            - James Bronson
-            - Bronson
-          - Eliza Shaeffer:
-            - Eliza Shaeffer
-            - Miss Eliza
-          - Miss Hope:
-            - Miss Hope
-          - Terry:
-            - Terry
+          - Test:
+              - test 1
         perpetrator:
           - Test:
               - test 1
@@ -184,71 +143,14 @@ data_loader:
               - stabbed
             positive_lookeaheads:
               - body
-      K: 
+      Where_Theres_A_Will: 
         url: https://www.gutenberg.org/files/9931/9931-0.txt
         detectives:
           - Test:
             - test 1
         suspects:
-          - Sidney Page:
-            - Sidney Page
-            - Miss Sidney
-            - Miss Page
-            - Sidney
-          - Moyne:
-            - Moyne
-          - Christine Lorenz:
-            - Christine Lorenz
-            - Christine
-            - Lorenz
-          - Christine Howe:
-            - Christine Howe
-          - Wilson Marriage:
-            - Wilson Marriage
-            - Wilson
-          - Carlotta Harrison:
-            - Carlotta Harrison
-            - Carlotta
-            - Miss Harrison
-            - Harrison
-          - Tillie:
-            - Tillie
-          - Palmer Howe:
-            - Palmer Howe
-            - Palmer
-            - Howe
-          - Harriet Kennedy:
-            - Harriet Kennedy
-            - Aunt Kennedy
-            - Harriet
-          - Schwitter:
-            - Schwitter
-          - Johnny Rosenfeld:
-            - Johnny Rosenfeld
-            - Johnny
-            - Rosenfeld
-          - McKee:
-            - McKee
-          - Katie:
-            - Katie
-          - Anna Page:
-            - Anna Page
-            - Anna
-          - Drummond:
-            - Drummond
-          - Grace Irving:
-            - Grace Irving
-            - Grace
-          - Reginald:
-            - Reginald
-          - Edwardes:
-            - Edwardes
-          - Bill Taft:
-            - Bill Taft
-            - Bill
-          - Miss Gregg:
-            - Miss Gregg
-            - Gregg
+          - Test:
+            - test 1
         perpetrator:
           - Test:
             - test 1
