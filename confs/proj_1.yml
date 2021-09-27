@@ -45,41 +45,28 @@ data_loader:
           - Richey McKnight: 
             - richey mcknight
             - mcknight
+            - mr. mcknight
             - richey
         suspects:
           - Wilson Budd Hotchkiss:
             - wilson budd hotchkiss
             - hotchkiss
+            - mr. hotchkiss
           - Henry Pinckney Sullivan:
             - henry pinckney sullivan
             - henry sullivan
             - sullivan
+            - mr. sullivan
           - Alison West:
             - alison west
             - alison
             - miss west
-          - Klopton: 
-            - klopton
-          - Lawrence Blakeley: 
-            - lawrence blakeley
-            - lawrence
-            - blakeley
-          - Bronson: 
-            - bronson
-          - Francis Johnson: 
-            - francis johnson
-            - johnson
-          - Alice Curtis:
-            - alice curtis
-            - alice
-            - curtis 
-          - Carter: 
-            - carter
         perpetrator:
-          - Anne Watson:
-            - anne watson
-            - mrs. watson
-            - mis’ watson
+          - Alice Curtis:
+            - mrs. curtis
+            - curtis
+            - alice
+            - alice curtis
         crime:
           - example:
             - example
