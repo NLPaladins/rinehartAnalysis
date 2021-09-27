@@ -148,8 +148,8 @@ data_loader:
         url: https://www.gutenberg.org/cache/epub/2019/pg2019.txt
         detectives:
           - Anderson:
-          - anderson
-          - mr. anderson
+              - anderson
+              - mr. anderson
         suspects:
           - Miss Cornelia:
               - miss cornelia
