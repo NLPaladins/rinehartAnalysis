@@ -59,13 +59,13 @@ def create_locs_labels(book, suspects, perp, dets, co_ocs, crime):
     return locs, labels, colors
 
 
-def make_timeline(book, locs, labels, colors, num_x_labels=10, out_path=None):
+def make_timeline(book, locs, labels, colors, title, num_x_labels=10, out_path=None):
     fig, ax = plt.subplots(figsize=(12, 5), tight_layout=True)
 
     total_sents = book.get_total_sentences()
     x_ticks = np.arange(1, total_sents + 1, int(total_sents / num_x_labels))
     x_labels = [str(int((pct) * 100 / num_x_labels)) + '%' for pct in range(num_x_labels + 1)]
-    ax.set_title('Timeline: The Circular Staircase', size=20)
+    ax.set_title(f'Timeline: {title}', size=20)
     ax.set_xticks(x_ticks)
     ax.set_xticklabels(x_labels, size=14)
     ax.get_yaxis().set_visible(False)
