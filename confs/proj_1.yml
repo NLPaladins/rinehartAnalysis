@@ -114,9 +114,9 @@ data_loader:
         crime:
           crime_details:
             or_words:
-              - killed
+              - pieces
             positive_lookeaheads:
-              - captain
+              - cut
           crime_type:
             or_words:
               - pieces
@@ -136,30 +136,31 @@ data_loader:
         crime:
           crime_details:
             or_words:
-              - body
-            positive_lookeaheads: null
+              - shot
+            positive_lookeaheads:
+              - fleming
           crime_type:
             or_words:
-              - stabbed
+              - shot
             positive_lookeaheads:
-              - body
-      Where_Theres_A_Will: 
-        url: https://www.gutenberg.org/cache/epub/330/pg330.txt
+              - fleming
+      The_Bat:
+        url: https://www.gutenberg.org/cache/epub/2019/pg2019.txt
         detectives:
           - Anderson:
-            - anderson
-            - mr. anderson
-        suspects:
-          - Miss Cornelia:
-            - miss cornelia
-          - Brooks:
-            - brooks
-          - Doctor Wells:
-            - doctor wells
-        perpetrator:
-          - The Bat:
-            - bat
-            - the bat
+              - anderson
+              - mr. anderson
+          suspects:
+            - Miss Cornelia:
+                - miss cornelia
+            - Brooks:
+                - brooks
+            - Doctor Wells:
+                - doctor wells
+          perpetrator:
+            - The Bat:
+                - bat
+                - the bat
         crime:
           crime_details:
             or_words:
@@ -197,6 +198,4 @@ data_loader:
 # The_Truce_of_God: https://www.gutenberg.org/cache/epub/14573/pg14573.txt
 # More_Tish: https://www.gutenberg.org/cache/epub/19851/pg19851.txt
 # Where_Theres_A_Will: https://www.gutenberg.org/cache/epub/330/pg330.txt
-
-
 # K: https://www.gutenberg.org/files/9931/9931-0.txt
