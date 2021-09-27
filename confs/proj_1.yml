@@ -87,6 +87,7 @@ data_loader:
           crime_type:
             or_words:
               - stabbed
+              - shot
             positive_lookeaheads:
               - body
       The_After_House:
@@ -119,11 +120,15 @@ data_loader:
           crime_details:
             or_words:
               - pieces
+              - dead
+              - killed
             positive_lookeaheads:
               - cut
           crime_type:
             or_words:
               - pieces
+              - dead
+              - killed
             positive_lookeaheads:
               - cut
       The_Window_at_the_White_Cat:
@@ -148,11 +153,15 @@ data_loader:
           crime_details:
             or_words:
               - shot
+              - killed
+              - murdered
             positive_lookeaheads:
               - fleming
           crime_type:
             or_words:
               - shot
+              - killed
+              - murdered
             positive_lookeaheads:
               - fleming
       The_Bat:
@@ -181,6 +190,7 @@ data_loader:
           crime_type:
             or_words:
               - shot
+              - stabbed
             positive_lookeaheads:
               - fleming
 
