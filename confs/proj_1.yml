@@ -89,8 +89,8 @@ data_loader:
         url: https://gutenberg.org/files/2358/2358-0.txt
         detectives:
           - McWhirter:
-          - mcwhirter
-          - mr. mcwhirter
+            - mcwhirter
+            - mr. mcwhirter
         suspects:
           - Marshall Benedict Turner:
             - marshall turner
