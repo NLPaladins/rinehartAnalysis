@@ -148,32 +148,30 @@ data_loader:
         url: https://www.gutenberg.org/cache/epub/2019/pg2019.txt
         detectives:
           - Anderson:
-              - anderson
-              - mr. anderson
-          suspects:
-            - Miss Cornelia:
-                - miss cornelia
-            - Brooks:
-                - brooks
-            - Doctor Wells:
-                - doctor wells
-          perpetrator:
-            - The Bat:
-                - bat
-                - the bat
+          - anderson
+          - mr. anderson
+        suspects:
+          - Miss Cornelia:
+              - miss cornelia
+          - Brooks:
+              - brooks
+          - Doctor Wells:
+              - doctor wells
+        perpetrator:
+          - The Bat:
+              - bat
+              - the bat
         crime:
           crime_details:
             or_words:
-              - body
-            positive_lookeaheads: null
+              - shot
+            positive_lookeaheads:
+              - rang
           crime_type:
             or_words:
-              - stabbed
+              - shot
             positive_lookeaheads:
-              - body
-
-
-
+              - fleming
 
 
 
