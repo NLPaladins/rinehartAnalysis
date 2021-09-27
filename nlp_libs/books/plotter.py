@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as plt_colors
 import matplotlib.lines as mlines
-import numpy
+import numpy as np
+
 
 def create_locs_labels(book, suspects, perp, dets, co_ocs, crime):
     # divide the book into n chunks based on sentences
@@ -22,7 +23,6 @@ def create_locs_labels(book, suspects, perp, dets, co_ocs, crime):
         labels.append(name)
         colors.append('tab:blue')
 
-    dets, perps = [dets_perp[0]], [dets_perp[1]]
     # perpetrator
     for name, values in perp.items():
         ch, sent_num, _ = values
@@ -43,9 +43,8 @@ def create_locs_labels(book, suspects, perp, dets, co_ocs, crime):
         locs.append(chapter_locs[ch - 1] + sent_num)
         labels.append(str(i + 1))
         colors.append('tab:orange')
-        
     # crime occurence
-        
+
     # add end of book
     locs.append(total_sents)
     labels.append('END')
@@ -58,6 +57,7 @@ def create_locs_labels(book, suspects, perp, dets, co_ocs, crime):
     colors = np.array(colors)[idx]
 
     return locs, labels, colors
+
 
 def make_timeline(book, locs, labels, colors, num_x_labels=10, out_path=None):
     fig, ax = plt.subplots(figsize=(12, 5), tight_layout=True)
@@ -72,7 +72,7 @@ def make_timeline(book, locs, labels, colors, num_x_labels=10, out_path=None):
 
     # tiling the event heights with some nice levels
     levels = np.tile([-5, 5, -3, 3, -1, 1],
-                     int(np.ceil(len(labels)/6)))[:len(labels)]
+                     int(np.ceil(len(labels) / 6)))[:len(labels)]
 
     # plot the event lines
     markerline, stemline, baseline = ax.stem(locs, levels,
@@ -87,7 +87,7 @@ def make_timeline(book, locs, labels, colors, num_x_labels=10, out_path=None):
     # annotate chapters
     vert = np.array(['top', 'bottom'])[(levels > 0).astype(int)]
     for sent_num, lv, label, va in zip(locs, levels, labels, vert):
-        ax.annotate(label, xy=(sent_num, lv), xytext=(6.5*len(label), np.sign(lv)*3),
+        ax.annotate(label, xy=(sent_num, lv), xytext=(6.5 * len(label), np.sign(lv) * 3),
                     textcoords="offset points", va=va, ha="right", size=12)
 
     # set colors
@@ -98,7 +98,7 @@ def make_timeline(book, locs, labels, colors, num_x_labels=10, out_path=None):
     legend_colors = ['tab:blue', 'tab:red', 'tab:green', 'tab:orange']
     legend_names = ['other suspects', 'perpetrator', 'detective', 'co-occurences']
     proxies = [mlines.Line2D([], [], color=legend_colors[i], marker='_',
-               markersize=15, label=legend_names[i]) for i in range(4)]
+                             markersize=15, label=legend_names[i]) for i in range(4)]
     fig.legend(handles=proxies, bbox_to_anchor=(1.0, 0.935), loc='upper left', fontsize=14)
 
     ax.margins(y=0.1)

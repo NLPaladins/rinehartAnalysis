@@ -11,9 +11,6 @@ logger = ColorizedLogger(logger_name='Process Book', color='cyan')
 
 
 class ProcessedBook:
-    num_map = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
-               (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
-               (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
     title: str
     url: str
 
@@ -57,7 +54,7 @@ class ProcessedBook:
         for chapter_idx in range(len(clean_chapters_copy_for_lower)):
             for line_idx in range(len(clean_chapters_copy_for_lower[chapter_idx])):
                 clean_chapters_copy_for_lower[chapter_idx][line_idx] = \
-                clean_chapters_copy_for_lower[chapter_idx][line_idx].lower()
+                    clean_chapters_copy_for_lower[chapter_idx][line_idx].lower()
 
         return clean_chapters_copy_for_lower, clean_chapters_capitalized
 
@@ -169,13 +166,7 @@ class ProcessedBook:
     @staticmethod
     def get_characters_per_chapter(chapter):
         found_character_list = []
-        singular_or_multiple_names = '[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+(?:(?:\s|,|.|\.\s)[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+)?(?:\s[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+)?(?:\s[A-Z][a-z][A-Z]?[a-z][A-Z]?[a-z]+)?'
-        # TODO: Executive decision occurred on the search string to ignore the
-        #       first word of each sentence as regex cannot differentiate between
-        #       a singular word and a name.  However, this does introduce a curious
-        #       thing with McKnight in the man in the lower ten, such that we get him
-        # .      as "Knight".
-        search_string = re.compile(fr'(?<!“)(?<!‘)(?<!^)({singular_or_multiple_names})')
+        search_string = re.compile(rf'[A-Z][a-z]+(?:\s|,|.|\.\s)[A-Z][a-z]+(?:\s[A-Z][a-z]+)?')
         # get characters per sentence in chapter
         for sentence in chapter:
             res = re.findall(search_string, sentence)
@@ -223,16 +214,16 @@ class ProcessedBook:
 
         return filtered_people, characterProgressionList
 
+    def get_total_sentences(self):
+        return sum([len(chapter) - 2 for chapter in self.clean])
+
     def get_chapter(self, chapter: int, lower=True) -> str:
         if lower:
             return self.clean_lower[chapter - 1]
         else:
             return self.clean[chapter - 1]
 
-    def extract_character_names(self, lower=True):
-        if lower is True:
-            lines_by_chapter = self.lines_to_chapters(self.lines_lower)
-        else:
-            lines_by_chapter = self.lines_to_chapters(self.lines)
+    def extract_character_names(self):
+        lines_by_chapter = self.lines_to_chapters(self.lines)
         for chapter in lines_by_chapter:
             print(chapter)
