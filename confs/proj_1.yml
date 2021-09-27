@@ -123,7 +123,7 @@ data_loader:
             positive_lookeaheads:
               - cut
       The_Window_at_the_White_Cat:
-        url: https://www.gutenberg.org/cache/epub/11127/pg11127.txt
+        url: https://www.gutenberg.org/cache/epub/34020/pg34020.txt
         detectives:
           - Test:
               - test 1
@@ -144,7 +144,7 @@ data_loader:
             positive_lookeaheads:
               - body
       Where_Theres_A_Will: 
-        url: https://www.gutenberg.org/files/9931/9931-0.txt
+        url: https://www.gutenberg.org/cache/epub/330/pg330.txt
         detectives:
           - Test:
             - test 1
