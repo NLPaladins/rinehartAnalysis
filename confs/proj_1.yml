@@ -37,8 +37,16 @@ data_loader:
             - mrs. watson
             - mis’ watson
         crime:
-          - example:
-            - example
+          crime_details:
+            or_words:
+              - killed
+              - shot
+            positive_lookeaheads: null
+          crime_type:
+            or_words:
+                - fired
+            positive_lookeaheads:
+                - bullet
       The_Man_in_Lower_Ten:
         url: https://www.gutenberg.org/files/1869/1869-0.txt
         detectives:
@@ -68,8 +76,15 @@ data_loader:
             - alice
             - alice curtis
         crime:
-          - example:
-            - example
+          crime_details:
+            or_words:
+              - body
+            positive_lookeaheads: null
+          crime_type:
+            or_words:
+              - stabbed
+            positive_lookeaheads:
+              - body
       The_After_House:
         url: https://gutenberg.org/files/2358/2358-0.txt
         detective:

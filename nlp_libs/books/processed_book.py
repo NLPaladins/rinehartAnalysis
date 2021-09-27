@@ -13,10 +13,11 @@ logger = ColorizedLogger(logger_name='Process Book', color='cyan')
 class ProcessedBook:
     title: str
     url: str
-
-    # detectives: List[str]
-    # suspects: List[str]
-    # crime_type: str
+    detectives: Dict
+    suspects: Dict
+    perpetrator: Dict
+    crime_details: Dict
+    crime_type: Dict
 
     def __init__(self, title: str, metadata: Dict):
         """
@@ -26,9 +27,11 @@ class ProcessedBook:
         """
         self.title = title
         self.url = metadata['url']
-        # self.detectives = metadata['detectives']
-        # self.suspects = metadata['suspects']
-        # self.crime_type = metadata['crime_type']
+        self.detectives = metadata['detectives']
+        self.suspects = metadata['suspects']
+        self.perpetrator = metadata['perpetrator']
+        self.crime_details = metadata['crime']['crime_details']
+        self.crime_type = metadata['crime']['crime_type']
         self.raw = self.read_book_from_proj_gut(self.url)
 
         self.raw_lower = self.raw.lower()
