@@ -5,119 +5,84 @@ data_loader:
       The_Circular_Staircase:
         url: https://www.gutenberg.org/files/434/434-0.txt
         detectives:
-          - Rachel Innes: 
-            - Rachel Innes
-            - Miss Rachel
-            - Aunt Rachel
-            - Rachel
+          - Mr. Jamieson:
+            - mr. jamieson
+            - jamieson
+            - mr. winters
+            - detective
+            - winters
         suspects:
+          - Gertrude Innes: 
+            - gertrude innes
+            - miss gertrude innes
+            - miss gertrude
+            - gertrude
+            - miss innes
+            - mis’ innes
+          - John Bailey:
+            - john bailey
+            - jack bailey
+            - mr. bailey
+            - bailey
+            - alex
+            - alexander graham
           - Halsey Innes:
-            - Halsey Innes
-            - Halsey
-          - Gertrude Innes:
-            - Gertrude Innes
-            - Miss Gertrude
-            - Gertrude
-            - Trude
-          - Jamieson:
-            - Jamieson
-          - Liddy Allen:
-            - Liddy Allen
-            - Miss Liddy
-            - Liddy
-          - Louise Armstrong:
-            - Louise Armstrong
-            - Miss Louise
-            - Louise
-          - Thomas Johnson:
-            - Thomas Johnson
-            - Thomas
-          - Arnold Armstrong:
-            - Arnold Armstrong
-            - Arnold
-            - Armstrong
-          - Alex:
-            - Alex
-          - Doctor Walker:
-            - Doctor Walker
-            - Walker
+            - halsey innes
+            - mr. halsey
+            - halsey
+            - mr. innes
+        perpetrator:
           - Anne Watson:
-            - Anne Watson
-            - Watson
-          - Casanova:
-            - Casanova
-          - Rosie:
-            - Rosie
-          - Jack Bailey:
-            - Jack Bailey
-            - Jack
-            - John Bailey
-            - John
-          - Warner:
-            - Warner
-          - Lucien Wallace:
-            - Lucien Wallace
-            - Lucien
-          - Doctor Stewart:
-            - Doctor Stewart
-            - Stewart
-          - Paul Armstrong:
-            - Paul Armstrong
-          - Walker:
-            - Walker
-          - Jarvis:
-            - Jarvis
-          - Nina Carrington:
-            - Nina Carrington
-            - Carrington
-          - Mary Anne:
-            - Mary Anne
-            - Mary
-          - Winters:
-            - Winters
-          - Harton:
-            - Harton
-          - Eliza Klinefelter:
-            - Eliza Klinefelter
-            - Eliza
-        crime_type: example
+            - anne watson
+            - mrs. watson
+            - mis’ watson
+        crime:
+          - example:
+            - example
       The_Man_in_Lower_Ten:
         url: https://www.gutenberg.org/files/1869/1869-0.txt
         detectives:
           - Richey McKnight: 
-            - Richey McKnight
-            - McKnight
-            - Richey
+            - richey mcknight
+            - mcknight
+            - richey
         suspects:
           - Wilson Budd Hotchkiss:
-            - Wilson Budd Hotchkiss
-            - Hotchkiss
+            - wilson budd hotchkiss
+            - hotchkiss
           - Henry Pinckney Sullivan:
-            - Henry Pinckney Sullivan
-            - Henry Sullivan
-            - Sullivan
+            - henry pinckney sullivan
+            - henry sullivan
+            - sullivan
           - Alison West:
-            - Alison West
-            - Alison
-            - Miss West
+            - alison west
+            - alison
+            - miss west
           - Klopton: 
-            - Klopton
+            - klopton
           - Lawrence Blakeley: 
-            - Lawrence Blakeley
-            - Lawrence
-            - Blakeley
+            - lawrence blakeley
+            - lawrence
+            - blakeley
           - Bronson: 
-            - Bronson
+            - bronson
           - Francis Johnson: 
-            - Francis Johnson
-            - Johnson
+            - francis johnson
+            - johnson
           - Alice Curtis:
-            - Alice Curtis
-            - Alice
-            - Curtis 
+            - alice curtis
+            - alice
+            - curtis 
           - Carter: 
-            - Carter
-        crime_type: murder
+            - carter
+        perpetrator:
+          - Anne Watson:
+            - anne watson
+            - mrs. watson
+            - mis’ watson
+        crime:
+          - example:
+            - example
       The_After_House:
         url: https://gutenberg.org/files/2358/2358-0.txt
         detective:
